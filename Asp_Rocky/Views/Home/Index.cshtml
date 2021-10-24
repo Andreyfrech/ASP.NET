@@ -2,7 +2,11 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<div class="text-right ">
+    <div class="reservation-line m-2">
+        @Html.TextBox("date", DateTime.Now.ToString("yyyy-MM-dd"), new { type = "date" })
+        </div>
+        <div class="reservation-line m-2">
+            @Html.TextBox("date", DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"), new { type = "date" })
+        </div>
+    </div>

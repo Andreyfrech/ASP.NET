@@ -83,3 +83,14 @@ body {
 .table{
     color: white;
 }
+
+.reservation-block {
+    text-align: right;
+    vertical-align:central;
+    
+}
+
+
+.reservation-line {
+    padding: 10px
+}
