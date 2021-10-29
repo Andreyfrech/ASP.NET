@@ -85,12 +85,19 @@ body {
 }
 
 .reservation-block {
-    text-align: right;
-    vertical-align:central;
-    
+    margin-left: auto;
+    padding-block: 10%;
+    width: 160px;
 }
 
 
 .reservation-line {
-    padding: 10px
+    padding: 2px
+}
+
+#hidden{
+    display: none;
+}
+.note-editable{
+    background-color: white
 }

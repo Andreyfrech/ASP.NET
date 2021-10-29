@@ -1,12 +1,85 @@
-﻿@{
+﻿@model Asp_Rocky.Models.Reservation
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-right ">
-    <div class="reservation-line m-2">
+<div class="reservation-block">
+    <div class="reservation-line ">
+        <div class="text-left">Заезд</div>
         @Html.TextBox("date", DateTime.Now.ToString("yyyy-MM-dd"), new { type = "date" })
-        </div>
-        <div class="reservation-line m-2">
-            @Html.TextBox("date", DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"), new { type = "date" })
-        </div>
     </div>
+
+    <div class="reservation-line ">
+        <div class="text-left">Выезд</div>
+        @Html.TextBox("date", DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"), new { type = "date" })
+    </div>
+    <div class="reservation-line m-1">
+        <div class="text-left">Гости</div>
+
+        <input   value=" " />
+        @Html.TextBox("combobox", DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"), new { type = "combobox" })
+    </div>
+    <div>
+        <input type="button" onclick="hiddenClickButton()" />
+    </div>
+    <div>
+        <input type="button" onclick="hiddenClickButton()" />
+    </div>
+</div>
+
+<div claas="guests-block" id="hidden">
+    <div>
+        <label asp-for="Adults"></label>
+    </div>
+    <div>
+        <input asp-for="Adults" />
+        <span asp-validation-for="Adults" class="text-danger"></span>
+    </div>
+</div>
+
+<script>
+    function hiddenClickButton() {
+        let x = document.getElementById('hidden');
+        if (x.style.display == "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none"
+        }
+    };
+</script>
+@*<div class="modal fade" id="add-contact" tabindex="-1" role="dialog" aria-labelledby="addContactLabel" aria-hidden="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addContactLabel">Add contact</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label asp-for="DateIn"></label>
+                            <input asp-for="DateIn" class="form-control" />
+                            <span asp-validation-for="DateIn" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DateOut"></label>
+                            <input asp-for="DateOut" class="form-control" />
+                            <span asp-validation-for="DateOut" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Adults"></label>
+                            <input asp-for="Adults" class="form-control" />
+                            <span asp-validation-for="Adults" class="text-danger"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+

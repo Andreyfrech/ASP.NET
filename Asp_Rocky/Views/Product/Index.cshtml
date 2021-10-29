@@ -6,8 +6,8 @@
             <h2 class="text-primary">Product List</h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-controller="Product" asp-action="Create" class="btn btn-primary">
-                Create New Product
+            <a asp-action="Upsert" class="btn btn-primary">
+                <i class="fas fa-plus"></i> &nbsp; Create New Product
             </a>
         </div>
     </div>
@@ -20,9 +20,9 @@
             <thead>
                 <tr>
                     <th>
-                       Product Name
+                        Product Name
                     </th>
-                    
+
                 </tr>
             </thead>
             <tbody>
@@ -30,6 +30,18 @@
                 {
                     <tr>
                         <td width="50%">@obj.Name</td>
+                        <td width="30%">@obj.Price</td>
+
+                        <td class="text-center">
+                            <div class="row -75 btn-group" role="group">
+                                <a asp-route-Id="@obj.Id" asp-action="Upsert" class="btn btn-primary mx-2">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-danger mx-2">
+                                    <i class="fas fa-trash-alt"></i>  Delelte
+                                </a>
+                            </div>
+                        </td>
                     </tr>
                 }
             </tbody>

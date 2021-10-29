@@ -11,6 +11,7 @@ namespace Asp_Rocky.Controllers
 {
     public class HomeController : Controller
     {
+        public int i = 0;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
