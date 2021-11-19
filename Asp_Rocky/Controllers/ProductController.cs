@@ -1,10 +1,12 @@
 ﻿using Asp_Rocky.Data;
 using Asp_Rocky.Models;
 using Asp_Rocky.Models.ViewModel;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,16 +15,18 @@ namespace Asp_Rocky.Controllers
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductController(ApplicationDbContext db)
+        public ProductController(ApplicationDbContext db, IWebHostEnvironment webHostEnvironment)
         {
             _db = db;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
             IEnumerable<Product> objList = _db.Product;
 
-            foreach(var obj in objList)
+            foreach (var obj in objList)
             {
                 obj.Category = _db.Category.FirstOrDefault(u => u.Id == obj.CategoryId);
             }
@@ -59,9 +63,13 @@ namespace Asp_Rocky.Controllers
             else
             {
                 productVM.Product = _db.Product.Find(id);
-                if(productVM.Product == null)
+                if (productVM.Product == null)
                 {
                     return NotFound();
+                }
+                if (ModelState.IsValid)
+                {
+                    return View(productVM);
                 }
                 return View(productVM);
 
@@ -70,13 +78,38 @@ namespace Asp_Rocky.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(Product obj)
+        public IActionResult Upsert(ProductVM productVM)
         {
-            _db.Product.Add(obj);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+            if (ModelState.IsValid)
+            {
+                var files = HttpContext.Request.Form.Files;
+                string webRootPath = _webHostEnvironment.WebRootPath;
 
+                if (productVM.Product.Id == 0)
+                {
+                    //create
+                    string upload = webRootPath + WC.ImagePath;
+                    string fileName = Guid.NewGuid().ToString();
+                    string extension = Path.GetExtension(files[0].FileName);
+
+                    using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
+                    {
+                        files[0].CopyTo(fileStream);
+                    }
+                    productVM.Product.Image = fileName + extension;
+
+                    _db.Product.Add(productVM.Product);
+                }
+                else
+                {
+                    //update
+                }
+
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
         //public IActionResult Edit(int? id)
         //{
         //    if (id == null || id == 0)

@@ -2,19 +2,19 @@
 
 namespace Asp_Rocky.Migrations
 {
-    public partial class updateProduct : Migration
+    public partial class AddProductToDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AddColumn<string>(
                 name: "Name",
                 table: "Product",
                 type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
+                defaultValue: "");
+               // oldClrType: typeof(string),
+                //oldType: "nvarchar(max)",
+               // oldNullable: true);
 
             migrationBuilder.AddColumn<int>(
                 name: "CategoryId",

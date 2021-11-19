@@ -1,9 +1,9 @@
-﻿@model Asp_Rocky.Models.Reservation
+﻿@*@model Asp_Rocky.Models.Reservation*@
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="reservation-block">
+@*<div class="reservation-block">
     <div class="reservation-line ">
         <div class="text-left">Заезд</div>
         @Html.TextBox("date", DateTime.Now.ToString("yyyy-MM-dd"), new { type = "date" })
@@ -46,7 +46,7 @@
             x.style.display = "none"
         }
     };
-</script>
+</script>*@
 @*<div class="modal fade" id="add-contact" tabindex="-1" role="dialog" aria-labelledby="addContactLabel" aria-hidden="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

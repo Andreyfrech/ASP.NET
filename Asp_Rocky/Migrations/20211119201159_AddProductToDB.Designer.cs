@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Asp_Rocky.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211027175941_updateProduct")]
-    partial class updateProduct
+    [Migration("20211119201159_AddProductToDB")]
+    partial class AddProductToDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
