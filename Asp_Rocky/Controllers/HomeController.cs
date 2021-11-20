@@ -1,5 +1,8 @@
-﻿using Asp_Rocky.Models;
+﻿using Asp_Rocky.Data;
+using Asp_Rocky.Models;
+using Asp_Rocky.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,17 +14,23 @@ namespace Asp_Rocky.Controllers
 {
     public class HomeController : Controller
     {
-        public int i = 0;
+        private readonly ApplicationDbContext _db;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
         {
+            _db = db;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            HomeVM homeVM = new HomeVM()
+            {
+                Products = _db.Product.Include(u => u.Category),
+                Categories = _db.Category
+            };
+            return View(homeVM);
         }
 
         public IActionResult Privacy()
