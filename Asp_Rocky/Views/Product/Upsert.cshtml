@@ -11,11 +11,10 @@
         <input asp-for="Product.Id" hidden />
     }
     <div class="border p-3">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
         <div class="form-group row">
             <h2 class="text-info pl-3">@title</h2>
         </div>
-
         <div class="row">
             <div class="col-8">
                 <div class="form-group row">
@@ -28,7 +27,6 @@
                     </div>
 
                 </div>
-
                 <div class="form-group row">
                     <div class="col-4">
                         <label asp-for="Product.Price"></label>
@@ -36,6 +34,13 @@
                     <div class="col-8">
                         <input asp-for="Product.Price" class="form-control" />
                         <span asp-validation-for="Product.Price" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                    </div>
+                    <div class="col-8">
                     </div>
 
                 </div>
@@ -51,53 +56,61 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                       
-                      <label asp-for="Product.Image"></label>
+                        Image
                     </div>
                     <div class="col-8">
                         <input type="file" name="files" id="uploadBox" multiple class="form-control" />
                     </div>
 
                 </div>
-
                 <div class="form-group row">
                     <div class="col-4">
                         <label asp-for="Product.CategoryId"></label>
                     </div>
                     <div class="col-8">
-                       <select asp-for="Product.CategoryId" asp-items="Model.CategorySelectList" class="form-control">
+                        <select asp-for="Product.CategoryId" asp-items="@Model.CategorySelectList" class="form-control">
                             <option disabled selected>--Select Category--</option>
                         </select>
                         <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
                     </div>
 
                 </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                    </div>
+                    <div class="col-8">
+                    </div>
 
+                </div>
                 <div class="form-group row">
                     <div class="col-8 offset-4 row">
 
                         <div class="col">
                             @if (Model.Product.Id != 0)
                             {
+                                //update
                                 <input type="submit" class="btn btn-info w-100" value="Update" />
                             }
                             else
                             {
+                                //create
                                 <input type="submit" onclick="return validateInput()" class="btn btn-primary w-100" value="Create" />
-
                             }
+
                         </div>
                         <div class="col">
-                            <a asp-action="Index" class="btn btn-primary"><i class="fas fa-sign-out-alt"></i> Back</a>
+                            <a asp-action="Index" class="btn btn-success w-100"><i class="fas fa-sign-out-alt"></i> Back</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-4 ">
                 @* Keep this empty *@
+                @if (Model.Product.Id != 0) { 
+                    <img src="@WC.ImagePath@Model.Product.Image" width="100%" style="border-radius:5px; border:1px solid #bbb" />
+                         }
             </div>
         </div>
-
     </div>
 
 </form>
@@ -107,22 +120,22 @@
     @{
         <partial name="_ValidationScriptsPartial" />
     }
-<script>
-    $(document).ready(function () {
-        $('.summernote').summernote({
-            height: 250
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height:250
+            });
         });
-    });
-    function validateInput() {
-        if (document.getElementById("uploadBox").value == "") {
-            Swal.fire(
-                'Error!',
-                'Please upload an Image!',
-                'Error'
-            )
-            return false;
+        function validateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire(
+                    'Error!',
+                    'Please upload an Image!',
+                    'error'
+                )
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
-</script>
+    </script>
 }
