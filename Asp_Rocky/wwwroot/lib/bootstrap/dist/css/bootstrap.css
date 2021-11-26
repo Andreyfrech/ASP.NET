@@ -2665,7 +2665,7 @@ fieldset:disabled a.btn {
 
 .btn-dark {
   color: #fff;
-  background-color: #343a40;
+  background-color: #343a40; 
   border-color: #343a40;
 }
 
@@ -2730,8 +2730,8 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-secondary {
-  color: #6c757d;
-  border-color: #6c757d;
+    color: #6c757d;
+    border-color: #6c757d;
 }
 
 .btn-outline-secondary:hover {
