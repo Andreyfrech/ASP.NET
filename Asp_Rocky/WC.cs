@@ -8,5 +8,6 @@ namespace Asp_Rocky
     public static class WC
     {
         public static string ImagePath = @"\img\product\";
+        public static string SessionCart = "ShoppingCartSession";
     }
 }
