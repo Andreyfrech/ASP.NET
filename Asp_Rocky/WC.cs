@@ -9,5 +9,9 @@ namespace Asp_Rocky
     {
         public static string ImagePath = @"\img\product\";
         public static string SessionCart = "ShoppingCartSession";
+
+        public static string AdminRole = "Admin";
+        public static string CustomerRole = "Customer";
+
     }
 }
