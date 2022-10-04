@@ -171,6 +171,7 @@ namespace Asp_Rocky.Controllers
                 return NotFound();
             }
 
+
             string upload = _webHostEnvironment.WebRootPath + WC.ImagePath;
             var oldFile = Path.Combine(upload, obj.Image);
 
