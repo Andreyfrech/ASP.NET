@@ -92,14 +92,8 @@ namespace Asp_Rocky.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    if(User.IsInRole(WC.AdminRole))
-                    {
-                        await _userManager.AddToRoleAsync(user, WC.AdminRole);
-                    }
-                    else
-                    {
-                        await _userManager.AddToRoleAsync(user, WC.CustomerRole);
-                    }
+
+                    await _userManager.AddToRoleAsync(user, WC.AdminRole);
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
