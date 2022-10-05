@@ -3,11 +3,11 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Product List</h2>
+            <h2 class="text-primary">Список товаров</h2>
         </div>
         <div class="col-6 text-right">
             <a asp-action="Upsert" class="btn btn-primary">
-                <i class="fas fa-plus"></i> &nbsp; Create New Product
+                <i class="fas fa-plus"></i> &nbsp; Добавить новый товар
             </a>
         </div>
     </div>
@@ -20,25 +20,27 @@
             <thead>
                 <tr>
                     <th>
-                        Product Name
+                        Наименование товара
                     </th>
-
+                    <th>
+                        Цена руб.
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var obj in Model)
                 {
                     <tr>
-                        <td width="50%">@obj.Name</td>
+                        <td width="45%">@obj.Name</td>
                         <td width="30%">@obj.Price</td>
 
                         <td class="text-center">
                             <div class="row -75 btn-group" role="group">
                                 <a asp-route-Id="@obj.Id" asp-action="Upsert" class="btn btn-primary mx-2">
-                                    <i class="fas fa-edit"></i> Edit
+                                    <i class="fas fa-edit"></i> Изменить
                                 </a>
                                 <a asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-danger mx-2">
-                                    <i class="fas fa-trash-alt"></i>  Delelte
+                                    <i class="fas fa-trash-alt"></i> Удалить
                                 </a>
                             </div>
                         </td>
@@ -49,7 +51,7 @@
     }
     else
     {
-        <p> No product exists. </p>
+        <p> Нет товаров. </p>
     }
 
 </div>

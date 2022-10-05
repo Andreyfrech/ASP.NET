@@ -1,0 +1,91 @@
+[33mcommit db0a617b6b36003459cbf9540cb8eaa00dcd6cbb[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m
+Author: frech <andreyka977@list.ru>
+Date:   Tue Oct 4 13:46:49 2022 +0300
+
+    Завершение корзины
+
+[33mcommit 941e3b9d18378703ba798d7781cdfcf85d8e0c6c[m
+Author: frech <andreyka977@list.ru>
+Date:   Mon Oct 3 23:15:44 2022 +0300
+
+    Завершение корзины
+
+[33mcommit 3002397d928f88331bdbcb52c521bcd88aa485fc[m
+Author: frech <andreyka977@list.ru>
+Date:   Tue Oct 4 13:03:24 2022 +0300
+
+    Revert "Завершение корзины"
+    
+    This reverts commit cdb32e88b61d31d6bbf3d73c0c662f59896d0da1.
+
+[33mcommit cdb32e88b61d31d6bbf3d73c0c662f59896d0da1[m
+Author: frech <andreyka977@list.ru>
+Date:   Mon Oct 3 23:15:44 2022 +0300
+
+    Завершение корзины
+
+[33mcommit 2f0de692537e9bb146ff103318d301ecf16f984f[m
+Author: frech <andreyka977@list.ru>
+Date:   Tue Jul 5 23:42:58 2022 +0300
+
+    Создал регистрацию и авторизацию пользователя
+
+[33mcommit d2358e2963db16150920699b9ddc0f334c745024[m
+Author: frech <andreyka977@list.ru>
+Date:   Fri Jan 7 01:05:20 2022 +0300
+
+    Форма регистрации и авторизации
+
+[33mcommit 4c94ddefd93c4e782bc671d1ea0849300ffc24ff[m
+Author: frech <andreyka977@list.ru>
+Date:   Tue Nov 30 21:52:08 2021 +0300
+
+    Добавление и удаление товара из корзины
+
+[33mcommit 1b8ddca032b5ba67ff68b09ea527dc842b7d9d72[m
+Author: frech <andreyka977@list.ru>
+Date:   Fri Nov 26 23:46:00 2021 +0300
+
+    Фильтр по категории на главной станицы
+
+[33mcommit 4027099b61a70d41397e3bbaeaa3ed52f5ca5d31[m
+Author: frech <andreyka977@list.ru>
+Date:   Sat Nov 20 23:58:53 2021 +0300
+
+    Редактирование главной страницы
+
+[33mcommit 9402f9b6cc24b17afdedf0090d73aff1ee442ea6[m
+Author: frech <andreyka977@list.ru>
+Date:   Sat Nov 20 15:41:00 2021 +0300
+
+    Редактирование продукта
+
+[33mcommit ceab0e54c76d57b807e268e183143e9ce1fd4e02[m
+Author: frech <andreyka977@list.ru>
+Date:   Fri Nov 19 23:46:33 2021 +0300
+
+    Добавление нового продукта. Удалил таблицу бронирования
+
+[33mcommit 8bec7d0e6c240220aeb5160d51900385d678c207[m
+Author: frech <andreyka977@list.ru>
+Date:   Sat Oct 30 01:54:04 2021 +0300
+
+    Product
+
+[33mcommit 0380321a89f85b4ee3a3e0421d36b86ebf177f50[m
+Author: frech <andreyka977@list.ru>
+Date:   Sun Oct 24 23:13:56 2021 +0300
+
+    Поля даты
+
+[33mcommit 613c311902f4c738ad91ad154389f97d777c0951[m
+Author: frech <andreyka977@list.ru>
+Date:   Thu Oct 21 22:00:40 2021 +0300
+
+    Добавьте файлы проекта.
+
+[33mcommit 694740d3727268644b82cee806e2f53ce451552f[m
+Author: frech <andreyka977@list.ru>
+Date:   Thu Oct 21 21:59:10 2021 +0300
+
+    Добавьте GITIGNORE- и GITATTRIBUTES-файлы.

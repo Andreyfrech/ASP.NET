@@ -94,7 +94,7 @@
                                            <input type="hidden" asp-for="@Model.ProductList[i].Name"/>
                                             <li class="list-group-item d-flex justify-content-between">
                                                 <div>
-                                                    <h6 class="my-0">@Model.ProductList[i].Name"</h6>
+                                                    <h6 class="my-0">@Model.ProductList[i].Name</h6>
                                                     @if (User.IsInRole(WC.AdminRole))
                                                     {
                                                         <small class="text-muted">Квадратный метр: @Model.ProductList[i].Price руб.</small>
