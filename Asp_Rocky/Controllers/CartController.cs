@@ -5,8 +5,10 @@ using Asp_Rocky.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Security.Claims;
 
@@ -35,8 +37,11 @@ namespace Asp_Rocky.Controllers
             }
 
             List<int> prodInCart = shoppingCartsList.Select(i => i.ProductId).ToList();
-            IEnumerable<Product> productList = _db.Product.Where(u => prodInCart.Contains(u.Id));
-
+           // IEnumerable<Product> productList = _db.Product.Where(u => prodInCart.Contains(u.Id));
+            
+           // IEnumerable<Product> productList = _db.Product.Where(u => prodInCart.Contains(u.Id)).ForEach(item => item.CountInCart = prodInCart.Count);//First(prod => prod == item.Id).Count);
+            IEnumerable<Product> Allproduct = _db.Product;
+            var productList = from scl in shoppingCartsList join Ap in Allproduct on scl.ProductId equals Ap.Id select new { ProductId = scl.ProductId, Name = Ap.Name, Category = Ap.Category, Description = Ap.Description, Image = Ap.Image, Price = Ap.Price, Count = scl.Count }.ToExpando();
             return View(productList);
         }
 
@@ -101,6 +106,17 @@ namespace Asp_Rocky.Controllers
         {
             HttpContext.Session.Clear();
             return View();
+        }
+    }
+    public static class Extensions
+    {
+        public static ExpandoObject ToExpando(this object anonymousObject)
+        {
+            IDictionary<string, object> anonymousDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(anonymousObject);
+            IDictionary<string, object> expando = new ExpandoObject();
+            foreach (var item in anonymousDictionary)
+                expando.Add(item);
+            return (ExpandoObject)expando;
         }
     }
 }

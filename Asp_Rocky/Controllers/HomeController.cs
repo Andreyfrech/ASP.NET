@@ -65,7 +65,7 @@ namespace Asp_Rocky.Controllers
         }
 
         [HttpPost, ActionName("Details")]
-        public IActionResult DetailsPost(int id)
+        public IActionResult DetailsPost(int id, Product product)
         {
             List<ShoppingCart> shoppingCartsList = new List<ShoppingCart>();
             if (HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart) != null
@@ -73,7 +73,8 @@ namespace Asp_Rocky.Controllers
             {
                 shoppingCartsList = HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart);
             }
-            shoppingCartsList.Add(new ShoppingCart { ProductId = id });
+            List<Product> products = new List<Product>();
+            shoppingCartsList.Add(new ShoppingCart { ProductId = id, Count = product.CountInCart });
             HttpContext.Session.Set(WC.SessionCart, shoppingCartsList);
             return RedirectToAction(nameof(Index));
         }
