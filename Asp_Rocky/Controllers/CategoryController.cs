@@ -1,26 +1,28 @@
-﻿using Asp_Rocky.Data;
+﻿using Asp_Rocky_DataAccess.Data;
 using Asp_Rocky.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Asp_Rocky_DataAccess.Repository;
+using Asp_Rocky_DataAccess.Repository.IRepository;
 
 namespace Asp_Rocky.Controllers
 {
     public class CategoryController : Controller
     {
 
-        private readonly ApplicationDbContext _db;
+        private readonly ICategoryRepository  _catRepo;
 
-        public CategoryController(ApplicationDbContext db)
+        public CategoryController(ICategoryRepository CatRepo)
         {
-            _db = db;
+            _catRepo = CatRepo;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Category> objList = _db.Category;
+            IEnumerable<Category> objList = _catRepo.GetAll();
             return View(objList);
         }
 
@@ -35,8 +37,8 @@ namespace Asp_Rocky.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Category.Add(obj);
-                _db.SaveChanges();
+                _catRepo.Add(obj);
+                _catRepo.Save();
                 return RedirectToAction("Index");
             }
             return View(obj);
@@ -48,7 +50,7 @@ namespace Asp_Rocky.Controllers
             {
                 return NotFound();
             }
-            var obj = _db.Category.Find(id);
+            var obj = _catRepo.Find(id.GetValueOrDefault());
             if(obj == null)
             {
                 return NotFound();
@@ -62,8 +64,8 @@ namespace Asp_Rocky.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Category.Update(obj);
-                _db.SaveChanges();
+                _catRepo.Update(obj);
+                _catRepo.Save();
                 return RedirectToAction("Index");
             }
             return View(obj);
@@ -75,7 +77,7 @@ namespace Asp_Rocky.Controllers
             {
                 return NotFound();
             }
-            var obj = _db.Category.Find(id);
+            var obj = _catRepo.Find(id.GetValueOrDefault());
             if (obj == null)
             {
                 return NotFound();
@@ -87,13 +89,13 @@ namespace Asp_Rocky.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
-            var obj = _db.Category.Find(id);
+            var obj = _catRepo.Find(id.GetValueOrDefault());
             if (obj == null)
             {
                return NotFound();
             }
-                _db.Category.Remove(obj);
-                _db.SaveChanges();
+            _catRepo.Remove(obj);
+            _catRepo.Save();
                 return RedirectToAction("Index");
         }
     }

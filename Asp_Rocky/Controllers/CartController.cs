@@ -1,7 +1,7 @@
-﻿using Asp_Rocky.Data;
+﻿using Asp_Rocky_DataAccess.Data;
 using Asp_Rocky.Models;
 using Asp_Rocky.Models.ViewModel;
-using Asp_Rocky.Utility;
+using Asp_Rocky_Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -83,12 +83,14 @@ namespace Asp_Rocky.Controllers
             }
 
             List<int> prodInCart = shoppingCartsList.Select(i => i.ProductId).ToList();
+            List<int> countProd = shoppingCartsList.Select(i => i.Count).ToList();
             IEnumerable<Product> productList = _db.Product.Where(u => prodInCart.Contains(u.Id));
 
             ProductUserVM = new ProductUserVM()
             {
                 ApplicationUser = _db.ApplicationUsers.FirstOrDefault(u => u.Id == claim.Value),
-                ProductList = productList.ToList()
+                ProductList = productList.ToList(),
+                CountProduct = countProd
             };
 
             return View(ProductUserVM);

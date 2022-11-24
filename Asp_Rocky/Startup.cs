@@ -1,4 +1,6 @@
-using Asp_Rocky.Data;
+using Asp_Rocky_DataAccess.Data;
+using Asp_Rocky_DataAccess.Repository;
+using Asp_Rocky_DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,6 +41,7 @@ namespace Asp_Rocky
                 Options.Cookie.HttpOnly = true;
                 Options.Cookie.IsEssential = true;
             });
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddControllersWithViews();
         }
 

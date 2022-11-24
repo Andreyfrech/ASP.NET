@@ -1,5 +1,5 @@
 ﻿@model Asp_Rocky.Models.ViewModel.ProductUserVM
-
+@using Asp_Rocky_Utility
 
 <form method="post" >
     <br />
@@ -94,25 +94,20 @@
                                            <input type="hidden" asp-for="@Model.ProductList[i].Name"/>
                                             <li class="list-group-item d-flex justify-content-between">
                                                 <div>
-                                                    <h6 class="my-0">@Model.ProductList[i].Name</h6>
-                                                    @if (User.IsInRole(WC.AdminRole))
-                                                    {
-                                                        <small class="text-muted">Квадратный метр: @Model.ProductList[i].Price руб.</small>
-                                                    }
-                                                    else
-                                                    {
-                                                        <small class="text-muted">Цена за квадратный метр: @Model.ProductList[i].Price руб.</small>
-                                                    }
+                                                    <h6 class="my-0">@Model.ProductList[i].Name</h6>                                      
+                                                        <small class="text-muted">Квадратный метр: @Model.CountProduct[i].</small>
                                                 </div>
-                                                @if (User.IsInRole(WC.AdminRole))
-                                                {
-                                                    <span class="text-muted">Цена</span>
-                                                }
+                                                    <span class="text-muted">Цена @string.Format("{0:c}",Model.ProductList[i].Price * Model.CountProduct[i])</span>
                                             </li>
-                                            
+                                            orderTotal += Model.ProductList[i].Price * Model.CountProduct[i];
                                         }
                                         
                                     </ul>
+                                    <div class="row">
+                                    <div class="col-12 text-right pr-4" style="color:#821f3d">
+                                       Сумма заказа : @string.Format("{0:c}", orderTotal)
+                                    </div>
+                                </div>
                                 </div>
                                 @if (User.IsInRole(WC.AdminRole))
                                 {

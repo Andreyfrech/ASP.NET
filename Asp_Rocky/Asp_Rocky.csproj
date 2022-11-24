@@ -18,7 +18,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Utility\" />
     <Folder Include="wwwroot\img\product\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Asp_Rocky_DataAccess\Asp_Rocky_DataAccess.csproj" />
+    <ProjectReference Include="..\Asp_Rocky_Models\Asp_Rocky_Models.csproj" />
+    <ProjectReference Include="..\Asp_Rocky_Utility\Asp_Rocky_Utility.csproj" />
   </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 

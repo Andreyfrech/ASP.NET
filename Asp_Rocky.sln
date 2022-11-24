@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31702.278
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asp_Rocky", "Asp_Rocky\Asp_Rocky.csproj", "{5480E105-D443-496B-BFDC-D66A998DD51A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Asp_Rocky", "Asp_Rocky\Asp_Rocky.csproj", "{5480E105-D443-496B-BFDC-D66A998DD51A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asp_Rocky_Utility", "Asp_Rocky_Utility\Asp_Rocky_Utility.csproj", "{324B8B77-DA15-4313-810A-C7B15158AE27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asp_Rocky_Models", "Asp_Rocky_Models\Asp_Rocky_Models.csproj", "{2506979E-5C74-4023-842E-613DA5AA1633}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asp_Rocky_DataAccess", "Asp_Rocky_DataAccess\Asp_Rocky_DataAccess.csproj", "{7588EB97-208B-45DB-8DF3-2CCD367A9BD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{5480E105-D443-496B-BFDC-D66A998DD51A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5480E105-D443-496B-BFDC-D66A998DD51A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5480E105-D443-496B-BFDC-D66A998DD51A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{324B8B77-DA15-4313-810A-C7B15158AE27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{324B8B77-DA15-4313-810A-C7B15158AE27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{324B8B77-DA15-4313-810A-C7B15158AE27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{324B8B77-DA15-4313-810A-C7B15158AE27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2506979E-5C74-4023-842E-613DA5AA1633}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2506979E-5C74-4023-842E-613DA5AA1633}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2506979E-5C74-4023-842E-613DA5AA1633}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2506979E-5C74-4023-842E-613DA5AA1633}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7588EB97-208B-45DB-8DF3-2CCD367A9BD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7588EB97-208B-45DB-8DF3-2CCD367A9BD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7588EB97-208B-45DB-8DF3-2CCD367A9BD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7588EB97-208B-45DB-8DF3-2CCD367A9BD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
