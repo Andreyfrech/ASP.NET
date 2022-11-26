@@ -13,5 +13,6 @@ namespace Asp_Rocky_Utility
         public static string AdminRole = "Admin";
         public static string CustomerRole = "Customer";
 
+        public const string CategoryName = "Category";
     }
 }

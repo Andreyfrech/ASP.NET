@@ -11,19 +11,30 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Security.Claims;
+using Asp_Rocky_DataAccess.Repository.IRepository;
+using Asp_Rocky_Models;
+using System;
 
 namespace Asp_Rocky.Controllers
 {
     [Authorize]
     public class CartController : Controller
     {
-        private readonly ApplicationDbContext _db;
+       
+        private readonly IApplicationUserRepository _userRepo;
+        private readonly IProductRepository _prodRepo;
+        private readonly IInquiryHeaderRepository _inqHRepo;
+        private readonly IInquiryDetailRepository _inqDRepo;
 
         [BindProperty]
         public ProductUserVM ProductUserVM { get; set; }
-        public CartController(ApplicationDbContext db)
+        public CartController(IProductRepository prodRepo, IApplicationUserRepository userRepo,
+            IInquiryDetailRepository inqDRepo, IInquiryHeaderRepository inqHRepo)
         {
-            _db = db;
+            _userRepo = userRepo;
+            _prodRepo = prodRepo;
+            _inqDRepo = inqDRepo;
+            _inqHRepo = inqHRepo;
         }
 
         public IActionResult Index()
@@ -40,7 +51,7 @@ namespace Asp_Rocky.Controllers
            // IEnumerable<Product> productList = _db.Product.Where(u => prodInCart.Contains(u.Id));
             
            // IEnumerable<Product> productList = _db.Product.Where(u => prodInCart.Contains(u.Id)).ForEach(item => item.CountInCart = prodInCart.Count);//First(prod => prod == item.Id).Count);
-            IEnumerable<Product> Allproduct = _db.Product;
+            IEnumerable<Product> Allproduct = _prodRepo.GetAll();
             var productList = from scl in shoppingCartsList join Ap in Allproduct on scl.ProductId equals Ap.Id select new { ProductId = scl.ProductId, Name = Ap.Name, Category = Ap.Category, Description = Ap.Description, Image = Ap.Image, Price = Ap.Price, Count = scl.Count }.ToExpando();
             return View(productList);
         }
@@ -84,11 +95,11 @@ namespace Asp_Rocky.Controllers
 
             List<int> prodInCart = shoppingCartsList.Select(i => i.ProductId).ToList();
             List<int> countProd = shoppingCartsList.Select(i => i.Count).ToList();
-            IEnumerable<Product> productList = _db.Product.Where(u => prodInCart.Contains(u.Id));
+            IEnumerable<Product> productList = _prodRepo.GetAll(u => prodInCart.Contains(u.Id));
 
             ProductUserVM = new ProductUserVM()
             {
-                ApplicationUser = _db.ApplicationUsers.FirstOrDefault(u => u.Id == claim.Value),
+                ApplicationUser = _userRepo.FirstOrDefault(u => u.Id == claim.Value),
                 ProductList = productList.ToList(),
                 CountProduct = countProd
             };
@@ -101,6 +112,32 @@ namespace Asp_Rocky.Controllers
         [ActionName("Summary")]
         public IActionResult SummaryPost(ProductUserVM ProductUserVM)
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            InquiryHeader inquiryHeader = new InquiryHeader()
+            {
+                ApplicationUserId = claim.Value,
+                FullName = ProductUserVM.ApplicationUser.FullName,
+                Email = ProductUserVM.ApplicationUser.Email,
+                PhoneNumber = ProductUserVM.ApplicationUser.PhoneNumber,
+                InquiryDate = DateTime.Now
+            };
+
+            _inqHRepo.Add(inquiryHeader);
+            _inqHRepo.Save();
+
+            foreach(var prod in ProductUserVM.ProductList)
+            {
+                InquiryDetail inquiryDetail = new InquiryDetail()
+                {
+                    InquiryHeaderId = inquiryHeader.Id,
+                    ProductId = prod.Id
+                };
+                _inqDRepo.Add(inquiryDetail);
+            }
+            _inqDRepo.Save();
+
             return RedirectToAction(nameof(InquiryConfirmation));
         }
 

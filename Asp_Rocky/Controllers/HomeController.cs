@@ -10,17 +10,20 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Asp_Rocky_DataAccess.Repository.IRepository;
 
 namespace Asp_Rocky.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IProductRepository _prodRepo;
         private readonly ILogger<HomeController> _logger;
+        private readonly ICategoryRepository _catRepo;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
+        public HomeController(ILogger<HomeController> logger, IProductRepository prodRepo, ICategoryRepository catRepo)
         {
-            _db = db;
+            _prodRepo = prodRepo;
+            _catRepo = catRepo;
             _logger = logger;
         }
 
@@ -28,8 +31,8 @@ namespace Asp_Rocky.Controllers
         {
             HomeVM homeVM = new HomeVM()
             {
-                Products = _db.Product.Include(u => u.Category),
-                Categories = _db.Category
+                Products = _prodRepo.GetAll(includeProperties: "Category"),
+                Categories = _catRepo.GetAll()
             };
             return View(homeVM);
         }
@@ -49,7 +52,7 @@ namespace Asp_Rocky.Controllers
 
             DetailsVM DetailsVM = new DetailsVM()
            {
-                Product = _db.Product.Include(u => u.Category).Where(u => u.Id == id).FirstOrDefault(),
+                Product = _prodRepo.FirstOrDefault(u => u.Id == id, includeProperties: "Category"),
                 ExistsInCart = false
            };
 

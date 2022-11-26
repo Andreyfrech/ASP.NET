@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Asp_Rocky_Models\Asp_Rocky_Models.csproj" />
+    <ProjectReference Include="..\Asp_Rocky_Utility\Asp_Rocky_Utility.csproj" />
   </ItemGroup>
 
 </Project>

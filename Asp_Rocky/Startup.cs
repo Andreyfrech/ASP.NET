@@ -42,6 +42,11 @@ namespace Asp_Rocky
                 Options.Cookie.IsEssential = true;
             });
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IInquiryHeaderRepository, InquiyHeaderRepository>();
+            services.AddScoped<IInquiryDetailRepository, InquiryDetailRepository>();
+            services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+
             services.AddControllersWithViews();
         }
 
