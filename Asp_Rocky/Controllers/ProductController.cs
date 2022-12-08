@@ -78,8 +78,9 @@ namespace Asp_Rocky.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Upsert(ProductVM productVM)
         {
-            if (ModelState.IsValid)
-            {
+            productVM.Product.CountInCart = 1;
+            //if (ModelState.IsValid)
+          //  {
                 var files = HttpContext.Request.Form.Files;
                 string webRootPath = _webHostEnvironment.WebRootPath;
 
@@ -132,9 +133,9 @@ namespace Asp_Rocky.Controllers
 
                 _prodRepo.Save();
                 return RedirectToAction("Index");
-            }
-            productVM.CategorySelectList = _prodRepo.GetAllDropdownList(WC.CategoryName);
-            return View(productVM);
+            //}
+            //productVM.CategorySelectList = _prodRepo.GetAllDropdownList(WC.CategoryName);
+           // return View(productVM);
         }
         //GET - DELETE
         public IActionResult Delete(int? id)

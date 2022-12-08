@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" />
     <link href="~/FontAwesome/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/material.css" />
 
@@ -24,7 +24,7 @@
 <body bgcolor="#000000">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
-            <div class="container">
+            <div class="container" style="font-size: 1.16vw">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/img/tile.png" width="40%"/>
                 </a>
@@ -39,9 +39,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Политика конфиденциальности</a>
-                        </li>
+                       
                          @if (User.IsInRole(WC.AdminRole))
                         {
                             <li class="nav-item dropdown">
@@ -60,7 +58,15 @@
 
                                 </div>
                             </li>
-
+                             <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Управление заказами/запросами
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item text-dark" asp-area="" asp-controller="Inquiry" asp-action="Index">Запросы</a>
+                                   
+                                </div>
+                            </li>
                         }
                         <li>
                             @if (HttpContextAccessor.HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart) != null)
@@ -84,8 +90,9 @@
             </div>
         </nav>
     </header>
-    <div class="container ">
+    <div class="container " style="color: white">
         <main role="main" class="pb-3">
+            <partial name="_Notifications"/>
             @RenderBody()
         </main>
     </div>
@@ -97,7 +104,8 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

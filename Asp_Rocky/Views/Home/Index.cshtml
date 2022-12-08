@@ -8,7 +8,7 @@
         <button class="btn btn-dark filter-button" data-filter="all">Все</button>
         @foreach (var obj in Model.Categories)
         {
-    <button class="btn btn-outline-secondary filter-button" data-filter="@obj.Name.Replace(' ','_')">@obj.Name</button>
+    <button class="btn btn-outline-light filter-button" data-filter="@obj.Name.Replace(' ','_')">@obj.Name</button>
         }
     </div>
     <br />
@@ -23,21 +23,21 @@
 
 @section Scripts{ 
 
-<script>
-    $(document).ready(function(){
+    <script>
+        $(document).ready(function () {
 
-        $(".filter-button").click(function() {
-            var value = $(this).attr('data-filter');
-            if (value == "all") {
-                $('.filter').show('1000');
-            }
-            else {
-                $(".filter").not('.'+value).hide('3000');
-                $('.filter').filter('.'+value).show('3000');
-            }
+            $(".filter-button").click(function () {
+                var value = $(this).attr('data-filter');
+                if (value == "all") {
+                    $('.filter').show('1000');
+                }
+                else {
+                    $(".filter").not('.' + value).hide('3000');
+                    $('.filter').filter('.' + value).show('3000');
+                }
+            });
         });
-    });
-</script>
+    </script>
 }
 
 

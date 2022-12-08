@@ -18,9 +18,9 @@
                                 <a asp-action="Index" asp-controller="Home" class="btn btn-outline-info btn-sm">Продолжить покупки</a>
                             </div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body bg-dark">
                             <div class=" d-none d-lg-block">
-                                <div class="row" style="color:#821f3d">
+                                <div class="row" style="color:pink">
                                     <div class="col-lg-2">
                                     </div>
                                     @if (User.IsInRole(WC.AdminRole))
@@ -103,13 +103,13 @@
                             }
 
                                 <div class="row">
-                                    <div class="col-12 text-right pr-4" style="color:#821f3d">
+                                    <div class="col-12 text-right pr-4" style="color:pink">
                                        Сумма заказа : @string.Format("{0:c}", orderTotal)
                                     </div>
                                 </div>
                            
                         </div>
-                        <div class="card-footer">
+                        <div class="card-footer bg-dark">
                             <div class="row">
 
                                 <div class="col-6 col-md-3 offset-md-6">

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Asp_Rocky_DataAccess.Repository;
 using Asp_Rocky_DataAccess.Repository.IRepository;
+using Asp_Rocky_Utility;
 
 namespace Asp_Rocky.Controllers
 {
@@ -39,8 +40,10 @@ namespace Asp_Rocky.Controllers
             {
                 _catRepo.Add(obj);
                 _catRepo.Save();
+                TempData[WC.Success] = "Категория успешно добавлена";
                 return RedirectToAction("Index");
             }
+            TempData[WC.Error] = "Ошибка при добавлении категории";
             return View(obj);
         }
 
