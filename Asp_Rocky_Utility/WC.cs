@@ -18,5 +18,13 @@ namespace Asp_Rocky_Utility
 
         public const string Success = "Success";
         public const string Error = "Error";
+
+        public const string StatusPending = "Ожидание";
+        public const string StatusApproved = "Подтвержден";
+        public const string StatusInProcess = "В процессе";
+        public const string StatusShipped = "Отправлен";
+        public const string StatusCancelled = "Отменён";
+        public const string StatusRefunded = "Возвращён";
+
     }
 }

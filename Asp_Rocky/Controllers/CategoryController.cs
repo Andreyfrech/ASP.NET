@@ -69,8 +69,10 @@ namespace Asp_Rocky.Controllers
             {
                 _catRepo.Update(obj);
                 _catRepo.Save();
+                TempData[WC.Success] = "Категория успешно изменена";
                 return RedirectToAction("Index");
             }
+            TempData[WC.Error] = "Ошибка при обновлении категории";
             return View(obj);
         }
 
@@ -95,11 +97,13 @@ namespace Asp_Rocky.Controllers
             var obj = _catRepo.Find(id.GetValueOrDefault());
             if (obj == null)
             {
-               return NotFound();
+                TempData[WC.Error] = "Ошибка при удалении категории";
+                return NotFound();
             }
             _catRepo.Remove(obj);
             _catRepo.Save();
-                return RedirectToAction("Index");
+            TempData[WC.Success] = "Категория успешно удалена";
+            return RedirectToAction("Index");
         }
     }
 }

@@ -20,9 +20,9 @@ namespace Asp_Rocky_DataAccess.Data
         public DbSet<ApplicationUser> ApplicationUsers  { get; set; }
         public DbSet<InquiryHeader> InquiryHeader { get; set; }
         public DbSet<InquiryDetail> InquiryDetail { get; set; }
-
-        public DbSet<Orders> Orders { get; set; }
-        public DbSet<Status > Status { get; set; }
+        public DbSet<OrderHeader> OrderHeader { get; set; }
+        public DbSet<OrderDetail> OrderDetail { get; set; }
+        
 
     }
 }

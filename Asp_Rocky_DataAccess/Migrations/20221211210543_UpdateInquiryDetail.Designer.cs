@@ -4,14 +4,16 @@ using Asp_Rocky_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Asp_Rocky_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221211210543_UpdateInquiryDetail")]
+    partial class UpdateInquiryDetail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,6 +38,33 @@ namespace Asp_Rocky_DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("Asp_Rocky.Models.Orders", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateOrder")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OrderNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Products")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Asp_Rocky.Models.Product", b =>
@@ -66,6 +95,22 @@ namespace Asp_Rocky_DataAccess.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("Asp_Rocky.Models.Status", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Status");
                 });
 
             modelBuilder.Entity("Asp_Rocky_Models.InquiryDetail", b =>
@@ -123,92 +168,6 @@ namespace Asp_Rocky_DataAccess.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.ToTable("InquiryHeader");
-                });
-
-            modelBuilder.Entity("Asp_Rocky_Models.OrderDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrderHeaderId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("PricePerSqFt")
-                        .HasColumnType("float");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderHeaderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderDetail");
-                });
-
-            modelBuilder.Entity("Asp_Rocky_Models.OrderHeader", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedByUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("FinalOrderTotal")
-                        .HasColumnType("float");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("OrderStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("PaymentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostalCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ShippingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("StreetAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TransactionId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedByUserId");
-
-                    b.ToTable("OrderHeader");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -432,6 +391,17 @@ namespace Asp_Rocky_DataAccess.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
+            modelBuilder.Entity("Asp_Rocky.Models.Orders", b =>
+                {
+                    b.HasOne("Asp_Rocky.Models.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Status");
+                });
+
             modelBuilder.Entity("Asp_Rocky.Models.Product", b =>
                 {
                     b.HasOne("Asp_Rocky.Models.Category", "Category")
@@ -469,34 +439,6 @@ namespace Asp_Rocky_DataAccess.Migrations
                         .HasForeignKey("ApplicationUserId");
 
                     b.Navigation("ApplicationUser");
-                });
-
-            modelBuilder.Entity("Asp_Rocky_Models.OrderDetail", b =>
-                {
-                    b.HasOne("Asp_Rocky_Models.OrderHeader", "OrderHeader")
-                        .WithMany()
-                        .HasForeignKey("OrderHeaderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Asp_Rocky.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("OrderHeader");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Asp_Rocky_Models.OrderHeader", b =>
-                {
-                    b.HasOne("Asp_Rocky.Models.ApplicationUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedByUserId");
-
-                    b.Navigation("CreatedBy");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

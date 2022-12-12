@@ -1,6 +1,7 @@
 using Asp_Rocky_DataAccess.Data;
 using Asp_Rocky_DataAccess.Repository;
 using Asp_Rocky_DataAccess.Repository.IRepository;
+using Asp_Rocky_Utility.BrainTree;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -41,10 +42,15 @@ namespace Asp_Rocky
                 Options.Cookie.HttpOnly = true;
                 Options.Cookie.IsEssential = true;
             });
+            services.Configure<BrainTreeSettings>(Configuration.GetSection("BrainTree"));
+            services.AddSingleton<IBrainTreeGate, BrainTreeGate>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IInquiryHeaderRepository, InquiyHeaderRepository>();
             services.AddScoped<IInquiryDetailRepository, InquiryDetailRepository>();
+            services.AddScoped<IOrderHeaderRepository, OrderHeaderRepository>();
+            services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+
             services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
 
             services.AddControllersWithViews();

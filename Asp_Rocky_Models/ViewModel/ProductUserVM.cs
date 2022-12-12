@@ -11,7 +11,7 @@ namespace Asp_Rocky.Models.ViewModel
 
         public ApplicationUser ApplicationUser { get; set; }
         public IList<Product> ProductList { get; set; }
-        public List<int> CountProduct { get; set; }
+       // public List<int> CountProduct { get; set; }
 
     }
 }

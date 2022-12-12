@@ -1,4 +1,4 @@
-﻿@model IEnumerable<dynamic>
+﻿@model List<Product>
 @using Asp_Rocky_Utility
 @if(Model.Count() > 0)
 {
@@ -57,48 +57,50 @@
                                 var orderTotal = 0.0;
                                 var SummaryPrice = 0.0;
                             }
-                            @foreach (var obj in Model)
+                            @for(int i = 0; i < Model.Count(); i++)
                             {
+                                <input hidden asp-for="@Model[i].Id"/>
+                                <input hidden asp-for="@Model[i].CountInCart"/>
                                 <div class="row h-100">
                                     <div class="col-4 col-md-2 text-center py-2">
-                                        <img src="@WC.ImagePath@obj.Image" class="rounded" width="100%" />
+                                        <img src="@WC.ImagePath@Model[i].Image" class="rounded" width="100%" />
                                     </div>
                                     @if (User.IsInRole(WC.AdminRole))
                                     {
 
                                         <div class="col-8 col-lg-3">
-                                            <h5>@obj.Name</h5>
-                                            <div style="font-size:11px;">@obj.Description</div>
+                                            <h5>@Model[i].Name</h5>
+                                            <div style="font-size:11px;">@Model[i].Description</div>
                                         </div>
                                     }
                                     else
                                     {
                                         <div class="col-8 col-lg-7">
-                                            <h5>@obj.Name</h5>
-                                            <div style="font-size:11px;">@obj.Description</div>
+                                            <h5>@Model[i].Name</h5>
+                                            <div style="font-size:11px;">@Model[i].Description</div>
                                         </div>
                                     }
                                     <div class="col-3 col-lg-2 pt-lg-4" style="font-size:11px;">
-                                        <span style="font-size:17px;"> @obj.Price</span> руб./кв.м
+                                        <span style="font-size:17px;"> @Model[i].Price</span> руб./кв.м
 
                                     </div>
                                      <div class="col-3 col-lg-2 pt-lg-4" style="font-size:11px;">
-                                        <span style="font-size:17px;">@obj.Count</span>
+                                        <input asp-for="@Model[i].CountInCart" class="form-control" />
 
                                     </div>
                                    
                                     <div class="col-3 col-lg-2 pt-lg-4" style="font-size:11px;">
-                                        <span style="font-size:17px;">@string.Format("{0:c}",obj.Price * obj.Count)</span>
+                                        <span style="font-size:17px;">@string.Format("{0:c}",Model[i].Price * Model[i].CountInCart)</span>
 
                                     </div>
                                     <div class="col-2 col-lg-1 p-0 pt-lg-4 text-center">
-                                        <a asp-action="Remove" asp-route-id="@obj.ProductId" class="btn btn-outline-danger">
+                                        <a asp-action="Remove" asp-route-id="@Model[i].Id" class="btn btn-outline-danger">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </div>
                                 </div>
-                                 SummaryPrice = obj.Price * obj.Count;
-                                orderTotal += obj.Price * obj.Count;
+                                SummaryPrice = Model[i].Price * Model[i].CountInCart;
+                                orderTotal += Model[i].Price * Model[i].CountInCart;
                                 <hr />
                             }
 
@@ -113,11 +115,9 @@
                             <div class="row">
 
                                 <div class="col-6 col-md-3 offset-md-6">
-                                    @if (User.IsInRole(WC.AdminRole))
-                                    {
-                                        <input type="submit" asp-action="UpdateCart" formmethod="post" name="Update" value="Обновить карзину"
+                                        <input type="submit" asp-action="UpdateCart" formmethod="post" name="Update" value="Обновить корзину"
                                                class="btn btn-info form-control" />
-                                    }
+                                    
                                 </div>
                                 <div class="col-6 col-md-3">
                                     <button type="submit" class="btn btn-success form-control ">

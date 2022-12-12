@@ -4,14 +4,16 @@ using Asp_Rocky_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Asp_Rocky_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221212115601_DeleteOrder1")]
+    partial class DeleteOrder1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,6 +38,33 @@ namespace Asp_Rocky_DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("Asp_Rocky.Models.Orders", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateOrder")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OrderNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Products")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Asp_Rocky.Models.Product", b =>
@@ -66,6 +95,22 @@ namespace Asp_Rocky_DataAccess.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("Asp_Rocky.Models.Status", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Status");
                 });
 
             modelBuilder.Entity("Asp_Rocky_Models.InquiryDetail", b =>
@@ -196,6 +241,10 @@ namespace Asp_Rocky_DataAccess.Migrations
 
                     b.Property<DateTime>("ShippingDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StreetAddress")
                         .IsRequired()
@@ -430,6 +479,17 @@ namespace Asp_Rocky_DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
+            modelBuilder.Entity("Asp_Rocky.Models.Orders", b =>
+                {
+                    b.HasOne("Asp_Rocky.Models.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("Asp_Rocky.Models.Product", b =>

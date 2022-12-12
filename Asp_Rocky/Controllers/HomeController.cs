@@ -79,6 +79,7 @@ namespace Asp_Rocky.Controllers
             List<Product> products = new List<Product>();
             shoppingCartsList.Add(new ShoppingCart { ProductId = id, Count = product.CountInCart });
             HttpContext.Session.Set(WC.SessionCart, shoppingCartsList);
+            TempData[WC.Success] = "продукт успешно добавлен в корзину";
             return RedirectToAction(nameof(Index));
         }
 
@@ -98,6 +99,7 @@ namespace Asp_Rocky.Controllers
             }
 
             HttpContext.Session.Set(WC.SessionCart, shoppingCartsList);
+            TempData[WC.Success] = "Товар успешно удален из корзины";
             return RedirectToAction(nameof(Index));
         }
 

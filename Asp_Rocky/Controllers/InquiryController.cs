@@ -60,7 +60,8 @@ namespace Asp_Rocky.Controllers
             {
                 ShoppingCart shoppingCart = new ShoppingCart()
                 {
-                    ProductId = detail.ProductId
+                    ProductId = detail.ProductId,
+                    Count = detail.ProdCount
                 };
                 shoppingCartList.Add(shoppingCart);
             }

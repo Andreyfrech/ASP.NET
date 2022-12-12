@@ -162,6 +162,7 @@ namespace Asp_Rocky.Controllers
             var obj = _prodRepo.Find(id.GetValueOrDefault());
             if (obj == null)
             {
+                TempData[WC.Error] = "Ошибка при удалении товара";
                 return NotFound();
             }
 
@@ -177,6 +178,7 @@ namespace Asp_Rocky.Controllers
 
             _prodRepo.Remove(obj);
             _prodRepo.Save();
+            TempData[WC.Success] = "Продукт успешно удален";
             return RedirectToAction("Index");
 
 

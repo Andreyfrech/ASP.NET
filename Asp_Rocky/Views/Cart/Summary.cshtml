@@ -1,7 +1,7 @@
 ﻿@model Asp_Rocky.Models.ViewModel.ProductUserVM
 @using Asp_Rocky_Utility
 
-<form method="post" >
+<form method="post" id="payment-form">
     <br />
     <div class="backgroundWhiteBorder">
         <div class="container">
@@ -92,14 +92,16 @@
                                         {
                                            <input type="hidden" asp-for="@Model.ProductList[i].Id"/>
                                            <input type="hidden" asp-for="@Model.ProductList[i].Name"/>
+                                            <input type="hidden" asp-for="@Model.ProductList[i].Price" />
+                                            <input type="hidden" asp-for="@Model.ProductList[i].CountInCart" />
                                             <li class="list-group-item d-flex justify-content-between bg-dark ">
                                                 <div>
                                                     <h6 class="my-0">@Model.ProductList[i].Name</h6>                                      
-                                                        <small class="text-muted">Квадратный метр: @Model.CountProduct[i].</small>
+                                                        <small class="text-muted">Квадратный метр: @Model.ProductList[i].CountInCart</small>
                                                 </div>
-                                                    <span class="text-muted">Цена @string.Format("{0:c}",Model.ProductList[i].Price * Model.CountProduct[i])</span>
+                                                <span class="text-muted">Цена @string.Format("{0:c}",Model.ProductList[i].Price * Model.ProductList[i].CountInCart)</span>
                                             </li>
-                                            orderTotal += Model.ProductList[i].Price * Model.CountProduct[i];
+                                            orderTotal += Model.ProductList[i].Price * Model.ProductList[i].CountInCart;
                                         }
                                         
                                     </ul>
